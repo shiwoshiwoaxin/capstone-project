@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Remapping | Hong Kong's Cultural Landscape through Southeast Asian Chinese Networks (1880s–1920s)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --ink: #0a0e17;
+            --navy: #111d2e;
+            --blue: #1b3a5c;
+            --mid-blue: #2a5f8f;
+            --steel: #4a7aab;
+            --gold: #c9982e;
+            --gold-light: #e4be5a;
+            --parchment: #f5f0e6;
+            --warm-white: #faf8f2;
+            --cream: #eee8d5;
+            --terra: #b5452e;
+            --terra-light: #d4674f;
+            --text: #1a1a1a;
+            --text-mid: #4a4a4a;
+            --text-light: #777;
+            --border: #d4cab6;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', 'Noto Serif SC', sans-serif;
+            background: var(--warm-white);
+            color: var(--text);
+            line-height: 1.75;
+            overflow-x: hidden;
+        }
+
+        ::selection { background: var(--gold); color: var(--ink); }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(10, 14, 23, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(201, 152, 46, 0.25);
+            transition: all 0.4s;
+        }
+        .nav-inner {
+            max-width: 1340px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 36px;
+        }
+        .nav-brand {
+            display: flex; align-items: center; gap: 12px;
+            padding: 13px 0; text-decoration: none;
+        }
+        .nav-brand-icon {
+            width: 32px; height: 32px;
+            background: linear-gradient(135deg, var(--gold), var(--terra));
+            border-radius: 6px; display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: 700; color: #fff;
+        }
+        .nav-brand-text {
+            font-family: 'Crimson Pro', serif;
+            font-size: 15px; font-weight: 600; color: #fff;
+            letter-spacing: 1.5px; text-transform: uppercase;
+        }
+        .nav-brand-text span {
+            display: block; font-size: 10px; font-weight: 400;
+            color: var(--gold); letter-spacing: 2px; margin-top: 1px;
+        }
+        nav ul { display: flex; gap: 4px; list-style: none; }
+        nav a {
+            text-decoration: none; color: rgba(255,255,255,0.65);
+            font-size: 12px; font-weight: 500; padding: 8px 12px;
+            border-radius: 4px; transition: all 0.25s; letter-spacing: 0.3px;
+        }
+        nav a:hover { background: rgba(201,152,46,0.2); color: #fff; }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(160deg, #060b14 0%, #0f1a2b 30%, #162a45 60%, #0f1a2b 100%);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            padding: 140px 40px 100px;
+        }
+        #heroCanvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(10,14,23,0.4) 100%);
+            z-index: 2;
+        }
+        .hero-content { position: relative; z-index: 3; text-align: center; max-width: 960px; }
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(201,152,46,0.12); border: 1px solid rgba(201,152,46,0.3);
+            color: var(--gold-light); font-family: 'Crimson Pro', serif;
+            font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+            padding: 8px 22px; border-radius: 30px; margin-bottom: 36px;
+        }
+        .hero-eyebrow .dot {
+            width: 6px; height: 6px; background: var(--terra-light);
+            border-radius: 50%; animation: blink 2s ease infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .hero h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 52px; font-weight: 300;
+            color: #fff; line-height: 1.15; margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+        .hero h1 strong {
+            font-weight: 700; color: var(--gold-light);
+        }
+        .hero-cn-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 22px; font-weight: 700;
+            color: rgba(255,255,255,0.6); margin-bottom: 28px;
+            letter-spacing: 2px;
+        }
+        .hero-abstract {
+            font-family: 'Crimson Pro', serif;
+            font-size: 17px; color: rgba(255,255,255,0.55);
+            line-height: 1.9; max-width: 720px; margin: 0 auto 44px;
+        }
+        .hero-meta {
+            display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+        }
+        .hero-meta-item { text-align: center; }
+        .hero-meta-item .label {
+            font-size: 10px; color: var(--gold); text-transform: uppercase;
+            letter-spacing: 2.5px; margin-bottom: 4px; font-weight: 600;
+        }
+        .hero-meta-item .value {
+            font-family: 'Crimson Pro', serif; font-size: 16px;
+            color: #fff; font-weight: 500;
+        }
+        .scroll-arrow {
+            position: absolute; bottom: 36px; left: 50%;
+            transform: translateX(-50%); z-index: 3;
+            animation: float-arrow 2.5s ease infinite;
+        }
+        .scroll-arrow svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 2; }
+        @keyframes float-arrow { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+        /* ─── SECTIONS ─── */
+        section { padding: 110px 40px; max-width: 1200px; margin: 0 auto; }
+        .full-section { max-width: 100%; padding-left: 0; padding-right: 0; }
+        .full-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        .section-label {
+            font-family: 'Crimson Pro', serif; font-size: 12px;
+            color: var(--terra); letter-spacing: 3px; text-transform: uppercase;
+            font-weight: 600; margin-bottom: 10px;
+        }
+        .section-title {
+            font-family: 'Crimson Pro', serif; font-size: 40px;
+            color: var(--ink); font-weight: 700; line-height: 1.25;
+        }
+        .section-title-cn {
+            font-family: 'Noto Serif SC', serif; font-size: 20px;
+            color: var(--text-mid); font-weight: 600; margin-top: 6px;
+        }
+        .section-divider {
+            width: 48px; height: 3px; margin-top: 18px;
+            background: linear-gradient(to right, var(--gold), var(--terra));
+            border-radius: 2px;
+        }
+        .section-header { margin-bottom: 56px; }
+
+        /* ─── ABSTRACT ─── */
+        .abstract-grid {
+            display: grid; grid-template-columns: 5fr 3fr; gap: 60px; align-items: start;
+        }
+        .abstract-text p {
+            font-family: 'Crimson Pro', serif; font-size: 17px;
+            line-height: 1.9; color: var(--text-mid); margin-bottom: 18px;
+        }
+        .abstract-text p:first-of-type::first-letter {
+            font-size: 56px; font-weight: 700; color: var(--terra);
+            float: left; line-height: 0.85; margin-right: 8px; margin-top: 6px;
+            font-family: 'Crimson Pro', serif;
+        }
+        .hl { background: linear-gradient(to top, rgba(201,152,46,0.18) 0%, transparent 50%); padding: 0 2px; }
+        .abstract-sidebar {
+            background: var(--parchment); border-radius: 10px;
+            padding: 32px; border: 1px solid var(--border);
+        }
+        .sidebar-heading {
+            font-family: 'Crimson Pro', serif; font-size: 13px;
+            color: var(--terra); text-transform: uppercase; letter-spacing: 2.5px;
+            font-weight: 700; margin-bottom: 18px;
+            padding-bottom: 12px; border-bottom: 2px solid var(--gold);
+        }
+        .kw-list { list-style: none; }
+        .kw-list li {
+            display: flex; align-items: center; gap: 10px;
+            padding: 9px 0; font-size: 14px; color: var(--text-mid);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .kw-list li:last-child { border-bottom: none; }
+        .kw-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+        .d1 { background: var(--terra); } .d2 { background: var(--blue); }
+        .d3 { background: var(--gold); } .d4 { background: #2d8a4e; }
+        .d5 { background: #7b2d8a; } .d6 { background: #d4760a; }
+
+        /* ─── RQ CARDS ─── */
+        .rq-section { background: var(--ink); padding: 110px 40px; }
+        .rq-section .section-label { color: var(--gold-light); }
+        .rq-section .section-title { color: #fff; }
+        .rq-section .section-title-cn { color: rgba(255,255,255,0.45); }
+        .rq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+        .rq-card {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px; padding: 36px 28px; transition: all 0.45s;
+            position: relative; overflow: hidden;
+        }
+        .rq-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 4px; height: 100%;
+        }
+        .rq-card:nth-child(1)::before { background: var(--terra); }
+        .rq-card:nth-child(2)::before { background: var(--gold); }
+        .rq-card:nth-child(3)::before { background: var(--steel); }
+        .rq-card:hover {
+            background: rgba(255,255,255,0.08); transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .rq-num {
+            font-family: 'Crimson Pro', serif; font-size: 52px; font-weight: 700;
+            line-height: 1; margin-bottom: 14px;
+        }
+        .rq-card:nth-child(1) .rq-num { color: rgba(181,69,46,0.35); }
+        .rq-card:nth-child(2) .rq-num { color: rgba(201,152,46,0.35); }
+        .rq-card:nth-child(3) .rq-num { color: rgba(74,122,171,0.35); }
+        .rq-card h3 {
+            font-family: 'Noto Serif SC', serif; font-size: 16px;
+            color: #fff; font-weight: 700; line-height: 1.65; margin-bottom: 10px;
+        }
+        .rq-card p {
+            font-family: 'Crimson Pro', serif; font-size: 14.5px;
+            color: rgba(255,255,255,0.5); line-height: 1.75; font-style: italic;
+        }
+
+        /* ─── METHODOLOGY ─── */
+        .method-section { background: var(--parchment); }
+        .method-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 26px; }
+        .method-card {
+            background: #fff; border-radius: 10px; overflow: hidden;
+            border: 1px solid var(--border); transition: all 0.4s;
+        }
+        .method-card:hover {
+            box-shadow: 0 14px 44px rgba(0,0,0,0.08); transform: translateY(-4px);
+        }
+        .method-top {
+            padding: 24px 28px 14px; display: flex; align-items: center; gap: 14px;
+        }
+        .method-icon {
+            width: 52px; height: 52px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; flex-shrink: 0;
+        }
+        .mi1 { background: linear-gradient(135deg, #1b3a5c, #2a5f8f); color: #fff; }
+        .mi2 { background: linear-gradient(135deg, #b5452e, #d4674f); color: #fff; }
+        .mi3 { background: linear-gradient(135deg, #c9982e, #e4be5a); color: #fff; }
+        .mi4 { background: linear-gradient(135deg, #2d8a4e, #43a047); color: #fff; }
+        .method-top h3 {
+            font-family: 'Noto Serif SC', serif; font-size: 17px;
+            color: var(--ink); font-weight: 700;
+        }
+        .method-top .m-en {
+            font-family: 'Crimson Pro', serif; font-size: 12.5px;
+            color: var(--text-light); font-style: italic;
+        }
+        .method-body { padding: 0 28px 24px; }
+        .method-body p {
+            font-size: 13.5px; color: var(--text-mid); line-height: 1.8; margin-bottom: 14px;
+        }
+        .m-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .m-tag {
+            font-size: 11px; padding: 3px 10px; border-radius: 20px;
+            background: var(--parchment); color: var(--text-mid); font-weight: 500;
+            border: 1px solid var(--border);
+        }
+
+        /* ─── CASE STUDIES ─── */
+        .case-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+        .case-card {
+            border-radius: 10px; overflow: hidden;
+            border: 1px solid var(--border); background: #fff;
+            transition: all 0.45s;
+        }
+        .case-card:hover {
+            box-shadow: 0 16px 48px rgba(0,0,0,0.1); transform: translateY(-5px);
+        }
+        .case-visual {
+            height: 160px; display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .cv1 { background: linear-gradient(135deg, #1b3a5c 0%, #2a5f8f 100%); }
+        .cv2 { background: linear-gradient(135deg, #8b1a1a 0%, #b5452e 100%); }
+        .cv3 { background: linear-gradient(135deg, #7a5c1a 0%, #c9982e 100%); }
+        .case-visual::before {
+            content: ''; position: absolute;
+            width: 200%; height: 200%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(255,255,255,0.03) 12px, rgba(255,255,255,0.03) 24px);
+        }
+        .case-visual .c-ico { font-size: 52px; position: relative; z-index: 2; }
+        .case-era {
+            position: absolute; top: 10px; right: 10px; z-index: 2;
+            background: rgba(0,0,0,0.45); color: #fff; font-size: 11px;
+            padding: 3px 10px; border-radius: 4px; font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+        .case-body { padding: 22px 24px; }
+        .case-body h3 {
+            font-family: 'Noto Serif SC', serif; font-size: 17px;
+            color: var(--ink); font-weight: 700; margin-bottom: 4px;
+        }
+        .case-body .c-en {
+            font-family: 'Crimson Pro', serif; font-size: 13px;
+            color: var(--text-light); font-style: italic; margin-bottom: 10px;
+        }
+        .case-body p { font-size: 13.5px; color: var(--text-mid); line-height: 1.75; }
+        .case-body .c-key {
+            display: inline-block; font-size: 11px; font-weight: 600;
+            background: var(--ink); color: #fff; padding: 3px 10px;
+            border-radius: 4px; margin-top: 12px;
+        }
+
+        /* ─── NETWORK SECTION ─── */
+        .network-section {
+            background: linear-gradient(160deg, #0a0e17, #162a45);
+            padding: 110px 40px; color: #fff;
+        }
+        .network-section .section-label { color: var(--gold-light); }
+        .network-section .section-title { color: #fff; }
+        .network-section .section-title-cn { color: rgba(255,255,255,0.4); }
+        .network-diagram {
+            max-width: 900px; margin: 50px auto 0;
+            display: flex; justify-content: center; align-items: center;
+            position: relative; min-height: 420px;
+        }
+        .net-center {
+            width: 130px; height: 130px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--terra), var(--gold));
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; font-family: 'Noto Serif SC', serif;
+            font-size: 15px; font-weight: 700; color: #fff; line-height: 1.4;
+            box-shadow: 0 0 60px rgba(201,152,46,0.3);
+            z-index: 2; position: relative;
+        }
+        .net-nodes { position: absolute; width: 100%; height: 100%; }
+        .net-node {
+            position: absolute; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; font-size: 11px; font-weight: 600;
+            transition: all 0.4s; cursor: default; line-height: 1.35;
+        }
+        .net-node:hover { transform: scale(1.1); }
+        .nn1 { width: 100px; height: 100px; background: rgba(27,58,92,0.9); border: 2px solid var(--steel); color: #fff; top: 5%; left: 10%; }
+        .nn2 { width: 100px; height: 100px; background: rgba(181,69,46,0.9); border: 2px solid var(--terra-light); color: #fff; top: 5%; right: 10%; }
+        .nn3 { width: 100px; height: 100px; background: rgba(201,152,46,0.9); border: 2px solid var(--gold-light); color: var(--ink); bottom: 5%; left: 10%; }
+        .nn4 { width: 100px; height: 100px; background: rgba(45,138,78,0.9); border: 2px solid #43a047; color: #fff; bottom: 5%; right: 10%; }
+        .nn5 { width: 90px; height: 90px; background: rgba(123,45,138,0.9); border: 2px solid #9c27b0; color: #fff; top: 38%; left: 2%; }
+        .nn6 { width: 90px; height: 90px; background: rgba(212,118,10,0.9); border: 2px solid #f57c00; color: #fff; top: 38%; right: 2%; }
+
+        .net-line {
+            position: absolute; background: rgba(255,255,255,0.08);
+            height: 1px; transform-origin: left center; z-index: 1;
+        }
+
+        .net-caption {
+            text-align: center; margin-top: 40px;
+            font-family: 'Crimson Pro', serif; font-size: 14px;
+            color: rgba(255,255,255,0.35); font-style: italic;
+        }
+
+        /* ─── TIMELINE ─── */
+        .tl-container { max-width: 780px; margin: 0 auto; position: relative; }
+        .tl-container::before {
+            content: ''; position: absolute; left: 28px; top: 0; bottom: 0;
+            width: 2px; background: linear-gradient(to bottom, var(--blue), var(--gold), var(--terra));
+        }
+        .tl-item {
+            display: flex; margin-bottom: 36px; position: relative; padding-left: 68px;
+        }
+        .tl-dot {
+            position: absolute; left: 14px; top: 22px;
+            width: 30px; height: 30px; border-radius: 50%;
+            background: var(--ink); border: 3px solid var(--gold);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Crimson Pro', serif; font-size: 11px;
+            font-weight: 700; color: var(--gold); z-index: 1;
+        }
+        .tl-card {
+            background: #fff; border-radius: 10px; padding: 22px 26px;
+            border: 1px solid var(--border); flex: 1; transition: all 0.3s;
+        }
+        .tl-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
+        .tl-card .tl-date {
+            font-family: 'Crimson Pro', serif; font-size: 13px;
+            color: var(--terra); font-weight: 600; letter-spacing: 1px; margin-bottom: 6px;
+        }
+        .tl-card h3 {
+            font-family: 'Noto Serif SC', serif; font-size: 16px;
+            color: var(--ink); font-weight: 700; margin-bottom: 6px;
+        }
+        .tl-card p { font-size: 13.5px; color: var(--text-mid); line-height: 1.75; }
+
+        /* ─── LITERATURE ─── */
+        .lit-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 26px; }
+        .lit-card {
+            background: #fff; border-radius: 10px; padding: 30px;
+            border: 1px solid var(--border); position: relative;
+            transition: all 0.4s;
+        }
+        .lit-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.07); transform: translateY(-4px);
+        }
+        .lit-idx {
+            position: absolute; top: 16px; right: 20px;
+            font-family: 'Crimson Pro', serif; font-size: 38px;
+            font-weight: 700; color: var(--gold); opacity: 0.25;
+        }
+        .lit-card h3 {
+            font-family: 'Noto Serif SC', serif; font-size: 16px;
+            color: var(--ink); font-weight: 700; line-height: 1.5;
+            margin-bottom: 5px;
+        }
+        .lit-card .l-en {
+            font-family: 'Crimson Pro', serif; font-size: 13px;
+            color: var(--terra); font-style: italic; margin-bottom: 12px;
+        }
+        .lit-card p { font-size: 13px; color: var(--text-mid); line-height: 1.8; }
+
+        /* ─── STATS ─── */
+        .stats-section { background: var(--parchment); }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(4,1fr); gap: 26px;
+        }
+        .stat-card {
+            text-align: center; padding: 36px 20px;
+            background: #fff; border-radius: 10px;
+            border: 1px solid var(--border); transition: all 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+        .stat-val {
+            font-family: 'Crimson Pro', serif; font-size: 50px; font-weight: 700;
+            background: linear-gradient(135deg, var(--terra), var(--gold));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; line-height: 1; margin-bottom: 8px;
+        }
+        .stat-label { font-size: 14px; font-weight: 600; color: var(--ink); }
+        .stat-sub { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+
+        /* ─── INNOVATION ─── */
+        .innov-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 26px; }
+        .innov-card {
+            background: #fff; border-radius: 10px; padding: 30px;
+            border: 1px solid var(--border); border-top: 4px solid var(--blue);
+            transition: all 0.4s;
+        }
+        .innov-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.07); transform: translateY(-4px); }
+        .innov-card:nth-child(2) { border-top-color: var(--terra); }
+        .innov-card:nth-child(3) { border-top-color: var(--gold); }
+        .innov-tag {
+            font-family: 'Crimson Pro', serif; font-size: 11px;
+            color: var(--terra); font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 12px;
+        }
+        .innov-card h3 {
+            font-family: 'Noto Serif SC', serif; font-size: 17px;
+            color: var(--ink); font-weight: 700; line-height: 1.5; margin-bottom: 10px;
+        }
+        .innov-card p { font-size: 13.5px; color: var(--text-mid); line-height: 1.8; }
+
+        /* ─── AUTHOR ─── */
+        .author-section {
+            background: var(--ink); padding: 110px 40px; color: #fff;
+        }
+        .author-content {
+            max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: auto 1fr; gap: 50px; align-items: center;
+        }
+        .author-avatar {
+            width: 160px; height: 160px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--terra), var(--gold));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 64px; border: 3px solid rgba(255,255,255,0.15);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+        .author-info h3 {
+            font-family: 'Crimson Pro', serif; font-size: 30px;
+            font-weight: 700; margin-bottom: 6px;
+        }
+        .author-info .a-role {
+            font-family: 'Crimson Pro', serif; font-size: 15px;
+            color: var(--gold-light); letter-spacing: 1px; margin-bottom: 22px;
+        }
+        .author-info p {
+            font-family: 'Crimson Pro', serif; font-size: 15px;
+            color: rgba(255,255,255,0.6); line-height: 1.85; margin-bottom: 14px;
+        }
+        .a-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+        .a-tag {
+            font-size: 11px; padding: 5px 13px; border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px; color: rgba(255,255,255,0.55); transition: all 0.3s;
+        }
+        .a-tag:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+        /* ─── BIBLIO ─── */
+        .bib-list { max-width: 820px; margin: 0 auto; }
+        .bib-item {
+            padding: 16px 22px; background: #fff; border-radius: 8px;
+            margin-bottom: 10px; border-left: 3px solid var(--gold);
+            font-family: 'Crimson Pro', serif; font-size: 14px; line-height: 1.7;
+            transition: all 0.3s; color: var(--text-mid);
+        }
+        .bib-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.05); transform: translateX(4px); }
+        .bib-item .b-author { font-weight: 700; color: var(--ink); }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: #060b14; color: #fff; text-align: center; padding: 50px 40px;
+        }
+        .footer-logo {
+            font-family: 'Crimson Pro', serif; font-size: 20px;
+            font-weight: 700; color: var(--gold-light); margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+        .footer-sub { font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 18px; }
+        .footer-line { width: 48px; height: 2px; background: var(--gold); margin: 18px auto; }
+        .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+
+        /* ─── BACK TO TOP ─── */
+        .btt {
+            position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px;
+            background: var(--ink); border-radius: 8px; display: flex;
+            align-items: center; justify-content: center; color: var(--gold);
+            font-size: 18px; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            z-index: 999; opacity: 0; pointer-events: none; transition: all 0.35s;
+        }
+        .btt.vis { opacity: 1; pointer-events: all; }
+        .btt:hover { background: var(--gold); color: var(--ink); }
+
+        /* ─── ANIMATIONS ─── */
+        .fu { opacity: 0; transform: translateY(28px); transition: all 0.65s cubic-bezier(0.16,1,0.3,1); }
+        .fu.vis { opacity: 1; transform: translateY(0); }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .abstract-grid, .author-content { grid-template-columns: 1fr; }
+            .rq-grid, .case-grid, .lit-grid, .innov-grid { grid-template-columns: 1fr; }
+            .method-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .net-nodes { display: none; }
+            .network-diagram { min-height: 200px; }
+        }
+        @media (max-width: 768px) {
+            section { padding: 60px 20px; }
+            .hero h1 { font-size: 32px; }
+            .hero-cn-title { font-size: 17px; }
+            .hero-abstract { font-size: 15px; }
+            .section-title { font-size: 30px; }
+            nav ul { gap: 1px; }
+            nav a { font-size: 10px; padding: 6px 7px; }
+            .nav-brand-text { font-size: 12px; }
+            .hero-meta { gap: 24px; }
+            .tl-container::before { left: 14px; }
+            .tl-dot { left: 0; width: 28px; height: 28px; }
+            .tl-item { padding-left: 48px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a class="nav-brand" href="#home">
+            <div class="nav-brand-icon">DR</div>
+            <div class="nav-brand-text">
+                Digital Remapping
+                <span>YARA &#x2022; MA Global Asian Digital History</span>
+            </div>
+        </a>
+        <ul>
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#questions">Questions</a></li>
+            <li><a href="#methodology">Methodology</a></li>
+            <li><a href="#cases">Cases</a></li>
+            <li><a href="#network">Networks</a></li>
+            <li><a href="#timeline">Timeline</a></li>
+            <li><a href="#literature">Literature</a></li>
+            <li><a href="#innovation">Innovation</a></li>
+            <li><a href="#author">Author</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<div class="hero" id="home">
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-eyebrow">
+            <span class="dot"></span>
+            MA Graduation Project &#x2022; Global Asian Digital History
+        </div>
+        <h1>
+            <strong>Digital Remapping:</strong><br>
+            The Formation of Hong Kong's<br>
+            Cultural Landscape through<br>
+            Southeast Asian Chinese Networks
+        </h1>
+        <div class="hero-cn-title">&#x6570;&#x5B57;&#x91CD;&#x7ED8;&#xFF1A;&#x4E1C;&#x5357;&#x4E9A;&#x534E;&#x4BABA;&#x7F51;&#x7EDC;&#x4E0E;&#x9999;&#x6E2F;&#x6587;&#x5316;&#x666F;&#x89C2;&#x7684;&#x5F62;&#x6210; (1880s&#x2013;1920s)</div>
+        <div class="hero-abstract">
+            This study examines how Southeast Asian Chinese networks&#x2014;through kinship, native-place ties, and trade guilds&#x2014;shaped Hong Kong's cultural landscape from the bottom up between the 1880s and 1920s, challenging both the "cultural desert" thesis and colonial-top-down narratives through integrated Historical GIS and Social Network Analysis.
+        </div>
+        <div class="hero-meta">
+            <div class="hero-meta-item">
+                <div class="label">Researcher</div>
+                <div class="value">YARA</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="label">Period</div>
+                <div class="value">1880s &#x2013; 1920s</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="label">Approach</div>
+                <div class="value">HGIS + SNA + 3D</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="label">Cases</div>
+                <div class="value">3 Spatial Sites</div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-arrow">
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+</div>
+
+<!-- ═══════ ABSTRACT ═══════ -->
+<section id="abstract">
+    <div class="section-header fu">
+        <div class="section-label">I. Abstract</div>
+        <h2 class="section-title">
+            Research Overview
+            <div class="section-title-cn">&#x7814;&#x7A76;&#x6982;&#x8FF0;</div>
+        </h2>
+        <div class="section-divider"></div>
+    </div>
+    <div class="abstract-grid">
+        <div class="abstract-text fu">
+            <p>This study systematically examines the formation mechanism of Hong Kong's multicultural landscape from the <span class="hl">1880s to the 1920s</span>, a period defined by intensified Chinese migration across Southeast Asia and the consolidation of diasporic networks in the colony. It challenges both the "cultural desert" thesis and colonial-top-down narratives by foregrounding the <span class="hl">agency of Southeast Asian Chinese networks</span>&#x2014;comprising native-place associations, kinship ties, and trade guilds&#x2014;in constructing the city's cultural spaces from the bottom up.</p>
+            <p>Drawing on Lefebvre's theory of the production of space and integrating <span class="hl">Historical GIS (HGIS)</span>, <span class="hl">Social Network Analysis (SNA)</span>, <span class="hl">three-dimensional digital reconstruction</span>, and <span class="hl">digital narrative</span>, the research maps temples, native-place halls, theatres, and markets as nodes where geography, clanship, and industry networks intersected. By spatialising these network relations, it reveals how diasporic Chinese communities institutionalised cultural practices&#x2014;charity ethics, theatrical inheritance, and commercial habits&#x2014;in specific urban spaces, thereby weaving the very fabric of Hong Kong's cultural heritage.</p>
+        </div>
+        <div class="abstract-sidebar fu">
+            <div class="sidebar-heading">KEYWORDS</div>
+            <ul class="kw-list">
+                <li><span class="kw-dot d1"></span>Southeast Asian Chinese Networks</li>
+                <li><span class="kw-dot d2"></span>Spatial Production</li>
+                <li><span class="kw-dot d3"></span>Diaspora Communities</li>
+                <li><span class="kw-dot d4"></span>Cultural Landscape</li>
+                <li><span class="kw-dot d5"></span>Digital Humanities</li>
+                <li><span class="kw-dot d6"></span>Historical GIS</li>
+            </ul>
+            <div style="margin-top:24px; padding-top:18px; border-top:1px solid var(--border);">
+                <div class="sidebar-heading">THEORETICAL FRAMEWORK</div>
+                <p style="font-family:'Crimson Pro',serif; font-size:13.5px; color:var(--text-mid); line-height:1.7;">
+                    Lefebvre's <em>Production of Space</em> (1991)&#x2014;space as product and medium of social relations&#x2014;combined with transnationalism theory to foreground bottom-up spatial agency.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════ RESEARCH QUESTIONS ═══════ -->
+<div class="rq-section" id="questions">
+    <div class="full-inner">
+        <div class="section-header fu">
+            <div class="section-label">II. Research Questions</div>
+            <h2 class="section-title">
+                Core Research Questions
+                <div class="section-title-cn">&#x6838;&#x5FC3;&#x7814;&#x7A76;&#x95EE;&#x9898;</div>
+            </h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="rq-grid">
+            <div class="rq-card fu">
+                <div class="rq-num">01</div>
+                <h3>&#x79BB;&#x6563;&#x793E;&#x7FA4;&#x5982;&#x4F55;&#x901A;&#x8FC7;&#x793E;&#x4F1A;&#x7F51;&#x7EDC;&#x5728;&#x7279;&#x5B9A;&#x7A7A;&#x95F4;&#x5236;&#x5EA6;&#x5316;&#x5176;&#x6587;&#x5316;&#x5B9E;&#x8DF5;&#xFF1F;</h3>
+                <p>How can diaspora communities institutionalise their cultural practices in specific spaces through social networks&#x2014;such as the establishment of native-place halls and industry temples&#x2014;and form places with cultural identity significance?</p>
+            </div>
+            <div class="rq-card fu">
+                <div class="rq-num">02</div>
+                <h3>&#x5173;&#x952E;&#x6587;&#x5316;&#x7F51;&#x7EDC;&#x5982;&#x4F55;&#x5728;&#x7A7A;&#x95F4;&#x4E2D;&#x8FD0;&#x4F5C;&#x5E76;&#x63A8;&#x52A8;&#x6587;&#x5316;&#x6A21;&#x5F0F;&#x7684;&#x751F;&#x6210;&#x4E0E;&#x6269;&#x6563;&#xFF1F;</h3>
+                <p>How can key cultural networks such as the Tung Wah Hospital, Pak Hok Tong, and Nam Pak Hong operate spatially and promote the generation and diffusion of specific cultural models&#x2014;charity ethics, theatrical inheritance, and commercial habits?</p>
+            </div>
+            <div class="rq-card fu">
+                <div class="rq-num">03</div>
+                <h3>&#x4E0D;&#x540C;&#x793E;&#x7FA4;&#x6784;&#x5EFA;&#x7684;&#x6587;&#x5316;&#x7A7A;&#x95F4;&#x5982;&#x4F55;&#x53E0;&#x52A0;&#x5E76;&#x5F62;&#x6210;&#x9999;&#x6E2F;&#x6587;&#x5316;&#x9057;&#x4EA7;&#xFF1F;</h3>
+                <p>How does the cultural space built by different communities overlap, functionally mix, and accumulate meaning over time, ultimately forming Hong Kong's cultural heritage?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════ METHODOLOGY ═══════ -->
+<section class="method-section" id="methodology">
+    <div class="section-header fu">
+        <div class="section-label">III. Methodology</div>
+        <h2 class="section-title">
+            Research Methodology
+            <div class="section-title-cn">&#x7814;&#x7A76;&#x65B9;&#x6CD5;</div>
+        </h2>
+        <div class="section-divider"></div>
+    </div>
+    <div class="method-grid">
+        <div class="method-card fu">
+            <div class="method-top">
+                <div class="method-icon mi1">&#x1F5FA;&#xFE0F;</div>
+                <div>
+                    <h3>&#x5386;&#x53F2;GIS&#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6784;</h3>
+                    <div class="m-en">Historical GIS Database Construction</div>
+                </div>
+            </div>
+            <div class="method-body">
+                <p>Data sources include Hong Kong Historical Archives, Hong Kong Memory Programme, old maps, newspaper advertisements, and community archives. Using ArcGIS Pro as the platform, temples, theatres, restaurants, and other cultural places are mapped individually with attributes for time, community attribution, and functional type.</p>
+                <div class="m-tags">
+                    <span class="m-tag">ArcGIS Pro</span>
+                    <span class="m-tag">Geocoding</span>
+                    <span class="m-tag">Temporal Layers</span>
+                </div>
+            </div>
+        </div>
+        <div class="method-card fu">
+            <div class="method-top">
+                <div class="method-icon mi2">&#x1F578;&#xFE0F;</div>
+                <div>
+                    <h3>&#x793E;&#x4F1A;&#x7F51;&#x7EDC;&#x5206;&#x6790;</h3>
+                    <div class="m-en">Social Network Analysis</div>
+                </div>
+            </div>
+            <div class="method-body">
+                <p>Using Gephi to analyse native-place, partnership, and in-law relationships among members of the Tung Wah Hospital board, the Pak Hok Tong committee, and the Nam Pak Hong firms. Combining spatial data to calculate network centrality and spatial clustering, identifying cultural hub figures and places.</p>
+                <div class="m-tags">
+                    <span class="m-tag">Gephi</span>
+                    <span class="m-tag">Centrality</span>
+                    <span class="m-tag">Network Visualisation</span>
+                </div>
+            </div>
+        </div>
+        <div class="method-card fu">
+            <div class="method-top">
+                <div class="method-icon mi3">&#x1F3DB;&#xFE0F;</div>
+                <div>
+                    <h3>&#x4E09;&#x7EF4;&#x6570;&#x5B57;&#x91CD;&#x5EFA;&#x4E0E;&#x7A7A;&#x95F4;&#x5206;&#x6790;</h3>
+                    <div class="m-en">3D Digital Reconstruction & Spatial Analysis</div>
+                </div>
+            </div>
+            <div class="method-body">
+                <p>Three typical spaces are selected for refined modelling: the Man Mo Temple (mid-19th century), the Taiping Theatre (1930s), and the Kowloon City Chiu Chow Daa Laang concentration area (1960s). Tools: Tinkercad for modelling, Agisoft Metashape for photogrammetry, and Unity for interactive scenes.</p>
+                <div class="m-tags">
+                    <span class="m-tag">Tinkercad</span>
+                    <span class="m-tag">Metashape</span>
+                    <span class="m-tag">Unity</span>
+                </div>
+            </div>
+        </div>
+        <div class="method-card fu">
+            <div class="method-top">
+                <div class="method-icon mi4">&#x1F4CA;</div>
+                <div>
+                    <h3>&#x6570;&#x5B57;&#x53D9;&#x4E8B;&#x4E0E;&#x53EF;&#x89C6;&#x5316;&#x8F93;&#x51FA;</h3>
+                    <div class="m-en">Digital Narrative & Visualization</div>
+                </div>
+            </div>
+            <div class="method-body">
+                <p>Using QGIS to integrate maps, network diagrams, 3D models, and historical texts. Three narrative threads: temples as social network nodes (arbitration &#x2192; cultural landmarks); theatre network changes (Pak Hok Tong &#x2192; Shaw Studios); dining space and identity (Chiu Chow Daa Laang &#x2192; Kowloon market life).</p>
+                <div class="m-tags">
+                    <span class="m-tag">QGIS</span>
+                    <span class="m-tag">Interactive Narrative</span>
+                    <span class="m-tag">Spatio-temporal Mapping</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════ CASE STUDIES ═══════ -->
+<section id="cases">
+    <div class="section-header fu">
+        <div class="section-label">IV. Case Studies</div>
+        <h2 class="section-title">
+            Three Typical Spatial Cases
+            <div class="section-title-cn">&#x4E09;&#x4E2A;&#x5178;&#x578B;&#x6848;&#x4F8B;&#x7A7A;&#x95F4;</div>
+        </h2>
+        <div class="section-divider"></div>
+    </div>
+    <div class="case-grid">
+        <div class="case-card fu">
+            <div class="case-visual cv1">
+                <span class="case-era">Mid-19th C.</span>
+                <div class="c-ico">&#x26E9;&#xFE0F;</div>
+            </div>
+            <div class="case-body">
+                <h3>&#x6587;&#x6B66;&#x5E99;</h3>
+                <div class="c-en">Man Mo Temple</div>
+                <p>Reconstructing its indoor and outdoor layout based on records from the <em>Hong Kong Chinese Daily</em> and old photographs. As a centre of arbitration and belief, the temple demonstrates how Chinese communities constructed social authority and collective identity through religious space.</p>
+                <span class="c-key">Arbitration Space &#x2022; Belief Centre</span>
+            </div>
+        </div>
+        <div class="case-card fu">
+            <div class="case-visual cv2">
+                <span class="case-era">1930s</span>
+                <div class="c-ico">&#x1F3AD;</div>
+            </div>
+            <div class="case-body">
+                <h3>&#x592A;&#x5E73;&#x620F;&#x9662;</h3>
+                <div class="c-en">Taiping Theatre</div>
+                <p>Combining architectural drawings and performance posters to restore its stage, seating, and backstage space. Analysing the performance relationship and community gathering mode reveals how entertainment spaces served as hubs for cultural transmission and social interaction.</p>
+                <span class="c-key">Entertainment Geography &#x2022; Community Hub</span>
+            </div>
+        </div>
+        <div class="case-card fu">
+            <div class="case-visual cv3">
+                <span class="case-era">1960s</span>
+                <div class="c-ico">&#x1F35C;</div>
+            </div>
+            <div class="case-body">
+                <h3>&#x4E5D;&#x9F99;&#x57CE;&#x6F6E;&#x5DDE;&#x6253;&#x51B7;&#x96C6;&#x4E2D;&#x533A;</h3>
+                <div class="c-en">Kowloon City Chiu Chow Daa Laang</div>
+                <p>Based on oral histories and municipal archives, reconstructing the street shop layout and dining space usage. Analysing the relationship between dietary space and identity, showing how diasporic communities maintained group belonging through taste memory and everyday practice.</p>
+                <span class="c-key">Dining Space &#x2022; Identity Formation</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════ NETWORK DIAGRAM ═══════ -->
+<div class="network-section" id="network">
+    <div class="full-inner">
+        <div class="section-header fu">
+            <div class="section-label">V. Network Topology</div>
+            <h2 class="section-title">
+                Three Layers of Social Networks
+                <div class="section-title-cn">&#x4E09;&#x7C7B;&#x793E;&#x4F1A;&#x7F51;&#x7EDC;</div>
+            </h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="network-diagram fu">
+            <div class="net-nodes">
+                <div class="net-node nn1">&#x5730;&#x7F18;<br>Geography</div>
+                <div class="net-node nn2">&#x8840;&#x7F18;<br>Clanship</div>
+                <div class="net-node nn3">&#x4E1A;&#x7F18;<br>Industry</div>
+                <div class="net-node nn4">&#x4FE1;&#x4EF0;<br>Belief</div>
+                <div class="net-node nn5">&#x540C;&#x4E61;<br>Native-place</div>
+                <div class="net-node nn6">&#x4EB2;&#x65CF;<br>Kinship</div>
+            </div>
+            <div class="net-center">&#x9999;&#x6E2F;&#x6587;&#x5316;&#x666F;&#x89C2;<br>Hong Kong<br>Cultural<br>Landscape</div>
+        </div>
+        <div class="net-caption">&#x25C6; Interactive network diagram &#x2014; three network types (geography, clanship, industry) converge on cultural spatial production &#x25C6;</div>
+    </div>
+</div>
+
+<!-- ═══════ TIMELINE ═══════ -->
+<section id="timeline">
+    <div class="section-header fu">
+        <div class="section-label">VI. Chronology</div>
+        <h2 class="section-title">
+            Research Timeline
+            <div class="section-title-cn">&#x7814;&#x7A76;&#x65F6;&#x95F4;&#x7EBF;</div>
+        </h2>
+        <div class="section-divider"></div>
+    </div>
+    <div class="tl-container">
+        <div class="tl-item fu">
+            <div class="tl-dot">1</div>
+            <div class="tl-card">
+                <div class="tl-date">Jan 23 &#x2013; Feb 7, 2026</div>
+                <h3>&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#xFF1A;&#x6587;&#x732E;&#x68B3;&#x7406;&#x4E0E;GIS&#x6570;&#x636E;&#x5E93;&#x521D;&#x5EFA;</h3>
+                <p>Literature review, archival collection, and preliminary construction of the historical GIS database. Mapping cultural sites with temporal and community attributes.</p>
+            </div>
+        </div>
+        <div class="tl-item fu">
+            <div class="tl-dot">2</div>
+            <div class="tl-card">
+                <div class="tl-date">Feb 7 &#x2013; Feb 27, 2026</div>
+                <h3>&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#xFF1A;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x6574;&#x7406;&#x4E0E;3D&#x6A21;&#x578B;</h3>
+                <p>Collating relational data on Tung Wah directors, Pak Hok Tong committee members, and Nam Pak Hong firms. Producing the first batch of three-dimensional reconstruction models.</p>
+            </div>
+        </div>
+        <div class="tl-item fu">
+            <div class="tl-dot">3</div>
+            <div class="tl-card">
+                <div class="tl-date">Feb 27 &#x2013; Mar 4, 2026</div>
+                <h3>&#x7B2C;&#x4E09;&#x9636;&#x6BB5;&#xFF1A;&#x7A7A;&#x95F4;&#x2014;&#x7F51;&#x7EDC;&#x53E0;&#x52A0;&#x5206;&#x6790;</h3>
+                <p>Overlaying social network data onto geographic space. Building the interactive digital narrative platform integrating maps, network graphs, and 3D models.</p>
+            </div>
+        </div>
+        <div class="tl-item fu">
+            <div class="tl-dot">4</div>
+            <div class="tl-card">
+                <div class="tl-date">Mar 4 &#x2013; Apr 4, 2026</div>
+                <h3>&#x7B2C;&#x56DB;&#x9636;&#x6BB5;&#xFF1A;&#x8BBA;&#x6587;&#x5199;&#x4F5C;&#x4E0E;&#x6210;&#x679C;&#x6574;&#x5408;</h3>
+                <p>Thesis writing, results integration, and final revision of all visualisation outputs and the interactive narrative platform.</p>
+            </div>
+        </div>
+        <div class="tl-item fu">
+            <div class="tl-dot">&#x2713;</div>
+            <div class="tl-card">
+                <div class="tl-date">2026</div>
+                <h3>&#x6700;&#x7EC8;&#x63D0;&#x4EA4;</h3>
+                <p>Final submission of the complete graduation project, including research thesis, digital narrative platform, GIS database, and visualisation works.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════ LITERATURE REVIEW ═══════ -->
+<section id="literature">
+    <div class="section-header fu">
+        <div class="section-label">VII. Literature Review</div>
+        <h2 class="section-title">
+            Literature Review
+            <div class="section-title-cn">&#x6587;&#x732E;&#x7EFC;&#x8FF0;</div>
+        </h2>
+        <div class="section-divider"></div>
+    </div>
+    <div class="lit-grid">
+        <div class="lit-card fu">
+            <div class="lit-idx">I</div>
+            <h3>&#x534E;&#x4EBA;&#x79BB;&#x6563;&#x7814;&#x7A76;&#x4E0E;&#x8DE8;&#x56FD;&#x7F51;&#x7EDC;</h3>
+            <div class="l-en">Overseas Chinese Research & Transnational Networks</div>
+            <p>From diaspora to spatial dynamics: Sinn (2013) reveals Hong Kong as a trans-Pacific hub; Carroll (2007) examines Chinese elite consultative strategies. Existing research lacks systematic spatialisation and visualisation of how ordinary overseas Chinese collectively shaped urban material space through daily practice.</p>
+        </div>
+        <div class="lit-card fu">
+            <div class="lit-idx">II</div>
+            <h3>&#x6B96;&#x6C11;&#x6E2F;&#x57CE;&#x53F2;&#x4E0E;&#x7A7A;&#x95F4;&#x751F;&#x4EA7;</h3>
+            <div class="l-en">Colonial Port City History & Social Production of Space</div>
+            <p>Challenging top-down narratives: Lefebvre (1991) emphasises space as product and medium of social relations. Chu (2021) analyses colonial land policies shaping urban geography, yet often regards residents as passive recipients. This study foregrounds how Chinese communities used social and cultural networks to create distinctive spaces.</p>
+        </div>
+        <div class="lit-card fu">
+            <div class="lit-idx">III</div>
+            <h3>&#x6570;&#x5B57;&#x4EBA;&#x6587;&#x8F6C;&#x5411;&#x4E0E;&#x5386;&#x53F2;GIS</h3>
+            <div class="l-en">Digital Humanities Shift & Historical GIS</div>
+            <p>Gregory, Geddes, and Bodenhamer advocate spatial humanities using GIS to process historical materials. Bol (2015) notes GIS enables historians to "ask new questions and present evidence in a new way." This research innovates by deeply integrating SNA with Historical GIS&#x2014;associating network nodes with precise coordinates to generate dynamic composite maps.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════ KEY NUMBERS ═══════ -->
+<section class="stats-section" id="data">
+    <div class="section-header fu">
+        <div class="section-label">VIII. Key Figures</div>
+        <h2 class="section-title">
+            Research in Numbers
+            <div class="section-title-cn">&#x7814;&#x7A76;&#x6570;&#x636E;</div>
+        </h2>
+        <div class="section-divider"></div>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-card fu">
+            <div class="stat-val">1880s</div>
+            <div class="stat-label">Starting Period</div>
+            <div class="stat-sub">Intensified SE Asian migration</div>
+        </div>
+        <div class="stat-card fu">
+            <div class="stat-val">40+</div>
+            <div class="stat-label">Years Covered</div>
+            <div class="stat-sub">1880s &#x2013; 1920s</div>
+        </div>
+        <div class="stat-card fu">
+            <div class="stat-val">3</div>
+            <div class="stat-label">Case Study Sites</div>
+            <div class="stat-sub">Temple &#x2022; Theatre &#x2022; Dining</div>
+        </div>
+        <div class="stat-card fu">
+            <div class="stat-val">4</div>
+            <div class="stat-label">Integrated Methods</div>
+            <div class="stat-sub">HGIS + SNA + 3D + Narrative</div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════ INNOVATION ═══════ -->
+<section id="innovation">
+    <div class="section-header fu">
+        <div class="section-label">IX. Innovation</div>
+        <h2 class="section-title">
+            Research Innovation
+            <div class="section-title-cn">&#x7814;&#x7A76;&#x521B;&#x65B0;</div>
+        </h2>
+        <div class="section-divider"></div>
+    </div>
+    <div class="innov-grid">
+        <div class="innov-card fu">
+            <div class="innov-tag">Innovation 01</div>
+            <h3>&#x81EA;&#x4E0B;&#x800C;&#x4E0A;&#x7684;&#x7A7A;&#x95F4;&#x751F;&#x4EA7;&#x5B9E;&#x8BC1;</h3>
+            <p>Addressing the lack of systematic, visual empirical research on how ordinary overseas Chinese "bottom-up" shaped urban space, this study reveals the spatial practice logic of diaspora communities through temporal-spatial evolution and network correlation of cultural sites.</p>
+        </div>
+        <div class="innov-card fu">
+            <div class="innov-tag">Innovation 02</div>
+            <h3>HGIS&#x4E0E;SNA&#x7684;&#x6DF1;&#x5EA6;&#x6574;&#x5408;</h3>
+            <p>Breaking through the limitations of static distribution maps and the separation of SNA from spatial contexts, this research associates network nodes with precise geographical coordinates, introduces centrality indicators, and generates dynamic composite maps that reveal the dual position of key figures and institutions in both social relations and geographic space.</p>
+        </div>
+        <div class="innov-card fu">
+            <div class="innov-tag">Innovation 03</div>
+            <h3>&#x201C;&#x7A7A;&#x95F4;&#x2014;&#x7F51;&#x7EDC;&#x201D;&#x65B9;&#x6CD5;&#x91CD;&#x5199;&#x57CE;&#x5E02;&#x53F2;</h3>
+            <p>Rewriting urban history from the perspective of overseas Chinese as active co-producers of urban space. This spatio-network method makes an exploratory contribution to digital humanities methodology, responding to Beale & Reilly's (2017) call for deeper integration of digital technology and humanistic inquiry.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════ AUTHOR ═══════ -->
+<div class="author-section" id="author">
+    <div class="author-content">
+        <div class="author-avatar fu">&#x1F469;&#x200D;&#x1F4DA;</div>
+        <div class="author-info fu">
+            <h3>YARA</h3>
+            <div class="a-role">MA Candidate &#x2022; Global Asian Digital History</div>
+            <p>Graduate researcher in Global Asian Digital History, dedicated to exploring the interaction between Chinese diaspora communities and urban cultural landscapes through digital humanities methods. Research interests encompass Historical GIS, Social Network Analysis, the theory of spatial production, and colonial urban history.</p>
+            <p>This study adopts a dual "space&#x2013;network" perspective to challenge the "cultural desert" stereotype of Hong Kong, re-examining how diaspora communities bottom-up wove the cultural texture of the city within and beyond colonial structures.</p>
+            <div class="a-tags">
+                <span class="a-tag">Digital Humanities</span>
+                <span class="a-tag">Historical GIS</span>
+                <span class="a-tag">Social Network Analysis</span>
+                <span class="a-tag">Spatial Production</span>
+                <span class="a-tag">Hong Kong History</span>
+                <span class="a-tag">Diaspora Studies</span>
+                <span class="a-tag">Cultural Landscape</span>
+                <span class="a-tag">3D Reconstruction</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════ BIBLIO ═══════ -->
+<section id="bibliography">
+    <div class="section-header fu">
+        <div class="section-label">X. Bibliography</div>
+        <h2 class="section-title">
+            Selected Bibliography
+            <div class="section-title-cn">&#x53C2;&#x8003;&#x6587;&#x732E;</div>
+        </h2>
+        <div class="section-divider"></div>
+    </div>
+    <div class="bib-list">
+        <div class="bib-item fu"><span class="b-author">Sinn, Elizabeth.</span> <em>Pacific Crossing: California Gold, Chinese Migration, and the Making of Hong Kong.</em> Hong Kong: Hong Kong University Press, 2013.</div>
+        <div class="bib-item fu"><span class="b-author">Carroll, John M.</span> <em>Edge of Empires: Chinese Elites and British Colonials in Hong Kong.</em> Hong Kong: Hong Kong University Press, 2007.</div>
+        <div class="bib-item fu"><span class="b-author">Lefebvre, Henri.</span> <em>The Production of Space.</em> Trans. Donald Nicholson-Smith. Oxford: Blackwell, 1991.</div>
+        <div class="bib-item fu"><span class="b-author">Chu, Cecilia L.</span> <em>Building Colonial Hong Kong: Speculative Development and Segregation in the City.</em> London: Routledge, 2021.</div>
+        <div class="bib-item fu"><span class="b-author">Bodenhamer, David J., John Corrigan, and Trevor M. Harris, eds.</span> <em>The Spatial Humanities: GIS and the Future of Humanities Scholarship.</em> Bloomington: Indiana University Press, 2010.</div>
+        <div class="bib-item fu"><span class="b-author">Bol, Peter K.</span> Review of <em>Toward Spatial Humanities: Historical GIS & Spatial History</em>, ed. Ian N. Gregory and Alistair Geddes. <em>Journal of Interdisciplinary History</em> 46, no. 2 (2015): 266&#x2013;67.</div>
+        <div class="bib-item fu"><span class="b-author">Beale, Gareth, and Paul Reilly.</span> "After Virtual Archaeology: Rethinking Archaeological Approaches to the Adoption of Digital Technology." <em>Internet Archaeology</em>, no. 44 (2017).</div>
+    </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+    <div class="footer-logo">DIGITAL REMAPPING</div>
+    <div class="footer-sub">Southeast Asian Chinese Networks & Hong Kong's Cultural Landscape (1880s&#x2013;1920s)</div>
+    <div class="footer-line"></div>
+    <div class="footer-copy">&copy; 2026 YARA &#x2022; MA Global Asian Digital History &#x2022; All rights reserved</div>
+</footer>
+
+<div class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#x2191;</div>
+
+<script>
+// ═══════ SCROLL ANIMATIONS ═══════
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+// ═══════ BACK TO TOP ═══════
+window.addEventListener('scroll', () => {
+    document.getElementById('btt').classList.toggle('vis', window.scrollY > 400);
+});
+
+// ═══════ SMOOTH NAV ═══════
+document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// ═══════ HERO CANVAS ═══════
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+let pts = [];
+let edges = [];
+let raf;
+
+function resize() {
+    canvas.width = canvas.parentElement.offsetWidth;
+    canvas.height = canvas.parentElement.offsetHeight;
+    init();
+}
+
+function init() {
+    pts = [];
+    const n = Math.min(80, Math.floor(canvas.width * canvas.height / 12000));
+    for (let i = 0; i < n; i++) {
+        pts.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            r: Math.random() * 1.8 + 0.6,
+            o: Math.random() * 0.25 + 0.08
+        });
+    }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // edges
+    for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+            const dx = pts[i].x - pts[j].x;
+            const dy = pts[i].y - pts[j].y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 130) {
+                ctx.beginPath();
+                ctx.moveTo(pts[i].x, pts[i].y);
+                ctx.lineTo(pts[j].x, pts[j].y);
+                ctx.strokeStyle = `rgba(201,152,46,${0.1 * (1 - d / 130)})`;
+                ctx.lineWidth = 0.4;
+                ctx.stroke();
+            }
+        }
+    }
+    // dots
+    pts.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(228,190,90,${p.o})`;
+        ctx.fill();
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    });
+    raf = requestAnimationFrame(draw);
+}
+
+window.addEventListener('resize', resize);
+resize();
+draw();
+</script>
+</body>
+</html>
