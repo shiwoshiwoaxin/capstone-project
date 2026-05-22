@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ca5e249f38b6f6eb4108d2bfac6c2e2d {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+            top: 10px; left: 50px; 
+            z-index: 9999; 
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 2px solid #333;
+            font-family: Arial;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);">
+    <h3>🌏 Overseas Chinese Donations Heatmap (1890-1905)</h3>
+    <p style="margin:0; font-size:12px; color:#666;">Intensity = Number of donors | Click markers for details</p>
+</div>
+    
+            <div class="folium-map" id="map_ca5e249f38b6f6eb4108d2bfac6c2e2d" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ca5e249f38b6f6eb4108d2bfac6c2e2d = L.map(
+                "map_ca5e249f38b6f6eb4108d2bfac6c2e2d",
+                {
+                    center: [20.0, 100.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 3,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_ca5e249f38b6f6eb4108d2bfac6c2e2d);
+
+            
+
+        
+    
+            var tile_layer_912a2649f37cc3de9ab57431b2b176d8 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_912a2649f37cc3de9ab57431b2b176d8.addTo(map_ca5e249f38b6f6eb4108d2bfac6c2e2d);
+        
+    
+            var heat_map_b40b2cf19379a35f14c090a5f83bb5ad = L.heatLayer(
+                [[13.7563, 100.5018, 2.0], [21.4812, 109.119, 43.0], [28.2282, 112.9389, 1.0], [22.9525, 113.2389, 20.0], [10.7519, 106.6429, 6.0], [23.1291, 113.2644, 2.0], [20.8449, 106.6881, 10.0], [10.8231, 106.6297, 80.0], [22.2856, 114.1505, 8.0], [22.3193, 114.1694, 10.0], [21.3069, -157.8583, 1.0], [22.3946, 112.6247, 5.0], [34.6901, 135.1955, 30.0], [22.5726, 88.3639, 1.0], [-12.0464, -77.0428, 31.0], [14.5995, 120.9842, 21.0], [-37.8136, 144.9631, 90.0], [19.4326, -99.1332, 1.0], [32.7503, 129.8779, 5.0], [40.7128, -74.006, 2972.0], [8.9824, -79.5199, 300.0], [5.4164, 100.3323, 11.0], [37.7749, -122.4194, 31.0], [31.2304, 121.4737, 2.0], [1.3521, 103.8198, 332.0], [35.6892, 51.389, 10.0], [48.4284, -123.3656, 2.0], [24.4798, 118.0894, 1.0], [16.8409, 96.1735, 10.0], [35.4437, 139.638, 43.0]],
+                {
+  "minOpacity": 0.3,
+  "maxZoom": 10,
+  "radius": 25,
+  "blur": 15,
+  "gradient": {
+  0.4: "blue",
+  0.6: "lime",
+  0.8: "yellow",
+  1.0: "red",
+},
+}
+            );
+        
+    
+            heat_map_b40b2cf19379a35f14c090a5f83bb5ad.addTo(map_ca5e249f38b6f6eb4108d2bfac6c2e2d);
+        
+    
+            var marker_cluster_c43227b2ab984949e389a1a44f0f8ede = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_5382be5da2ca5f7b19413e22c7aaf699 = L.marker(
+                [13.7563, 100.5018],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_fc14f4d69cab415d37703ccd8455f391 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0a2e32322d71f0eab5ad06f3db20ee94 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5a16a272ce50961f32599165bf55b279 = $(`<div id="html_5a16a272ce50961f32599165bf55b279" style="width: 100.0%; height: 100.0%;">     <b>📍 Bangkok, Thailand</b><br>     <b>Total donors:</b> 2<br>     <b>Transactions:</b> 2<br>     <b>Coordinates:</b> 13.7563, 100.5018     </div>`)[0];
+                popup_0a2e32322d71f0eab5ad06f3db20ee94.setContent(html_5a16a272ce50961f32599165bf55b279);
+            
+        
+
+        marker_5382be5da2ca5f7b19413e22c7aaf699.bindPopup(popup_0a2e32322d71f0eab5ad06f3db20ee94)
+        ;
+
+        
+    
+    
+                marker_5382be5da2ca5f7b19413e22c7aaf699.setIcon(icon_fc14f4d69cab415d37703ccd8455f391);
+            
+    
+            var marker_3dfe1a512904359dcc5bcdde1056b422 = L.marker(
+                [21.4812, 109.119],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_9234574c9d1410536b896123a07cc35f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8a637044a59e0c98c5a1291f20a35495 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f64a999af8228892f8d1ba81f05dd4ee = $(`<div id="html_f64a999af8228892f8d1ba81f05dd4ee" style="width: 100.0%; height: 100.0%;">     <b>📍 Beihai, China</b><br>     <b>Total donors:</b> 43<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 21.4812, 109.1190     </div>`)[0];
+                popup_8a637044a59e0c98c5a1291f20a35495.setContent(html_f64a999af8228892f8d1ba81f05dd4ee);
+            
+        
+
+        marker_3dfe1a512904359dcc5bcdde1056b422.bindPopup(popup_8a637044a59e0c98c5a1291f20a35495)
+        ;
+
+        
+    
+    
+                marker_3dfe1a512904359dcc5bcdde1056b422.setIcon(icon_9234574c9d1410536b896123a07cc35f);
+            
+    
+            var marker_23872e399c94f8b6e1ac381386fd4e66 = L.marker(
+                [28.2282, 112.9389],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_0f406a7fdea7df9bf74c9b94d5b2dada = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_91818f11136da3e1cb63bd095f5eef38 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a1b03c318e83c89551dcfb62f5d163d4 = $(`<div id="html_a1b03c318e83c89551dcfb62f5d163d4" style="width: 100.0%; height: 100.0%;">     <b>📍 Changsha, China</b><br>     <b>Total donors:</b> 1<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 28.2282, 112.9389     </div>`)[0];
+                popup_91818f11136da3e1cb63bd095f5eef38.setContent(html_a1b03c318e83c89551dcfb62f5d163d4);
+            
+        
+
+        marker_23872e399c94f8b6e1ac381386fd4e66.bindPopup(popup_91818f11136da3e1cb63bd095f5eef38)
+        ;
+
+        
+    
+    
+                marker_23872e399c94f8b6e1ac381386fd4e66.setIcon(icon_0f406a7fdea7df9bf74c9b94d5b2dada);
+            
+    
+            var marker_b5c5508ab46aec6d99876dcfc91429ce = L.marker(
+                [22.9525, 113.2389],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_1a93bd2a48a3202f56d54db14ea49b62 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9c42d0ab95fee3e66c85f4d3b584f002 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d344cf5c356350414c87b0b005d3ca3e = $(`<div id="html_d344cf5c356350414c87b0b005d3ca3e" style="width: 100.0%; height: 100.0%;">     <b>📍 Chencun, China</b><br>     <b>Total donors:</b> 20<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 22.9525, 113.2389     </div>`)[0];
+                popup_9c42d0ab95fee3e66c85f4d3b584f002.setContent(html_d344cf5c356350414c87b0b005d3ca3e);
+            
+        
+
+        marker_b5c5508ab46aec6d99876dcfc91429ce.bindPopup(popup_9c42d0ab95fee3e66c85f4d3b584f002)
+        ;
+
+        
+    
+    
+                marker_b5c5508ab46aec6d99876dcfc91429ce.setIcon(icon_1a93bd2a48a3202f56d54db14ea49b62);
+            
+    
+            var marker_c3cb19ac090fc11cf3af8b99e88f9038 = L.marker(
+                [10.7519, 106.6429],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_9f63230445c9ba7a39252de8aca7a1f6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_56c49cbc142cd146bcaae69a5cc7fc14 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_79cb9ec111785d99a29d32251869c670 = $(`<div id="html_79cb9ec111785d99a29d32251869c670" style="width: 100.0%; height: 100.0%;">     <b>📍 Cholon, Vietnam</b><br>     <b>Total donors:</b> 6<br>     <b>Transactions:</b> 2<br>     <b>Coordinates:</b> 10.7519, 106.6429     </div>`)[0];
+                popup_56c49cbc142cd146bcaae69a5cc7fc14.setContent(html_79cb9ec111785d99a29d32251869c670);
+            
+        
+
+        marker_c3cb19ac090fc11cf3af8b99e88f9038.bindPopup(popup_56c49cbc142cd146bcaae69a5cc7fc14)
+        ;
+
+        
+    
+    
+                marker_c3cb19ac090fc11cf3af8b99e88f9038.setIcon(icon_9f63230445c9ba7a39252de8aca7a1f6);
+            
+    
+            var marker_fddf2c307eb6c217dea70dadd1f592db = L.marker(
+                [23.1291, 113.2644],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_16eaeb86b2f363c922864f0b89fc7930 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_182d3914a50bd491fc6c28e9bf88f58b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_50f63c011f02ad63487a3090d80e35b8 = $(`<div id="html_50f63c011f02ad63487a3090d80e35b8" style="width: 100.0%; height: 100.0%;">     <b>📍 Guangzhou, China</b><br>     <b>Total donors:</b> 2<br>     <b>Transactions:</b> 2<br>     <b>Coordinates:</b> 23.1291, 113.2644     </div>`)[0];
+                popup_182d3914a50bd491fc6c28e9bf88f58b.setContent(html_50f63c011f02ad63487a3090d80e35b8);
+            
+        
+
+        marker_fddf2c307eb6c217dea70dadd1f592db.bindPopup(popup_182d3914a50bd491fc6c28e9bf88f58b)
+        ;
+
+        
+    
+    
+                marker_fddf2c307eb6c217dea70dadd1f592db.setIcon(icon_16eaeb86b2f363c922864f0b89fc7930);
+            
+    
+            var marker_61162681d5cd6c29f562738df1e3d8b5 = L.marker(
+                [20.8449, 106.6881],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_3aa77658e8786801fd6956a69d5edba9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_133618097b337673ba653385e9a2edb8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6af5dab768a427af48bfe1b04dbfc303 = $(`<div id="html_6af5dab768a427af48bfe1b04dbfc303" style="width: 100.0%; height: 100.0%;">     <b>📍 Haiphong, Vietnam</b><br>     <b>Total donors:</b> 10<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 20.8449, 106.6881     </div>`)[0];
+                popup_133618097b337673ba653385e9a2edb8.setContent(html_6af5dab768a427af48bfe1b04dbfc303);
+            
+        
+
+        marker_61162681d5cd6c29f562738df1e3d8b5.bindPopup(popup_133618097b337673ba653385e9a2edb8)
+        ;
+
+        
+    
+    
+                marker_61162681d5cd6c29f562738df1e3d8b5.setIcon(icon_3aa77658e8786801fd6956a69d5edba9);
+            
+    
+            var marker_4ddba74971f416ae8c08ab8d7528b614 = L.marker(
+                [10.8231, 106.6297],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_7f5bfbbc6671c5d57049659b7da84c7c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_265de0dcd33aaf2d0af186680d3630b6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_63e6a10aac7617b5eecfa607405d195e = $(`<div id="html_63e6a10aac7617b5eecfa607405d195e" style="width: 100.0%; height: 100.0%;">     <b>📍 Ho Chi Minh City, Vietnam</b><br>     <b>Total donors:</b> 80<br>     <b>Transactions:</b> 4<br>     <b>Coordinates:</b> 10.8231, 106.6297     </div>`)[0];
+                popup_265de0dcd33aaf2d0af186680d3630b6.setContent(html_63e6a10aac7617b5eecfa607405d195e);
+            
+        
+
+        marker_4ddba74971f416ae8c08ab8d7528b614.bindPopup(popup_265de0dcd33aaf2d0af186680d3630b6)
+        ;
+
+        
+    
+    
+                marker_4ddba74971f416ae8c08ab8d7528b614.setIcon(icon_7f5bfbbc6671c5d57049659b7da84c7c);
+            
+    
+            var marker_c6879b7916b09e2e471d2c2a5833dc37 = L.marker(
+                [22.2856, 114.1505],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_0582dd986e0ebe2b8da78bb0777ea21a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4eaf7d67e5de230ca98e69750e3283f3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b3106fe6bf04e40515ae94ee6df51682 = $(`<div id="html_b3106fe6bf04e40515ae94ee6df51682" style="width: 100.0%; height: 100.0%;">     <b>📍 Hong Kong, Hong Kong</b><br>     <b>Total donors:</b> 8<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 22.2856, 114.1505     </div>`)[0];
+                popup_4eaf7d67e5de230ca98e69750e3283f3.setContent(html_b3106fe6bf04e40515ae94ee6df51682);
+            
+        
+
+        marker_c6879b7916b09e2e471d2c2a5833dc37.bindPopup(popup_4eaf7d67e5de230ca98e69750e3283f3)
+        ;
+
+        
+    
+    
+                marker_c6879b7916b09e2e471d2c2a5833dc37.setIcon(icon_0582dd986e0ebe2b8da78bb0777ea21a);
+            
+    
+            var marker_fab1a0b0ea4e61ce11f232ef0cd30d2f = L.marker(
+                [22.3193, 114.1694],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_f680cef66f9995dfae491035eace69d7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3d02f0c89eefbdc07c21c9592d3fe3d9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_294af35ca41984e48c6fbb3b1ddc2bde = $(`<div id="html_294af35ca41984e48c6fbb3b1ddc2bde" style="width: 100.0%; height: 100.0%;">     <b>📍 Hong Kong, Hong Kong</b><br>     <b>Total donors:</b> 10<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 22.3193, 114.1694     </div>`)[0];
+                popup_3d02f0c89eefbdc07c21c9592d3fe3d9.setContent(html_294af35ca41984e48c6fbb3b1ddc2bde);
+            
+        
+
+        marker_fab1a0b0ea4e61ce11f232ef0cd30d2f.bindPopup(popup_3d02f0c89eefbdc07c21c9592d3fe3d9)
+        ;
+
+        
+    
+    
+                marker_fab1a0b0ea4e61ce11f232ef0cd30d2f.setIcon(icon_f680cef66f9995dfae491035eace69d7);
+            
+    
+            var marker_06c0fb2b7fcc69b24a29c1a707751e47 = L.marker(
+                [21.3069, -157.8583],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_6f352565d8547eb157b90830f7293122 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8e20f8f42a31c31bac5147b449b2dd95 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_075ac3e6b035b38f33458effec0317f7 = $(`<div id="html_075ac3e6b035b38f33458effec0317f7" style="width: 100.0%; height: 100.0%;">     <b>📍 Honolulu, USA</b><br>     <b>Total donors:</b> 1<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 21.3069, -157.8583     </div>`)[0];
+                popup_8e20f8f42a31c31bac5147b449b2dd95.setContent(html_075ac3e6b035b38f33458effec0317f7);
+            
+        
+
+        marker_06c0fb2b7fcc69b24a29c1a707751e47.bindPopup(popup_8e20f8f42a31c31bac5147b449b2dd95)
+        ;
+
+        
+    
+    
+                marker_06c0fb2b7fcc69b24a29c1a707751e47.setIcon(icon_6f352565d8547eb157b90830f7293122);
+            
+    
+            var marker_832e6cd3c1fdd44dfd27ff2eeec3418e = L.marker(
+                [22.3946, 112.6247],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_fb102397e32e3ab7aa3ec2a1e95fa917 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_63822063d859b25f4534adbb485bcedc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3043cf314c950fb0a6803b1d387bb755 = $(`<div id="html_3043cf314c950fb0a6803b1d387bb755" style="width: 100.0%; height: 100.0%;">     <b>📍 Kaiping, China</b><br>     <b>Total donors:</b> 5<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 22.3946, 112.6247     </div>`)[0];
+                popup_63822063d859b25f4534adbb485bcedc.setContent(html_3043cf314c950fb0a6803b1d387bb755);
+            
+        
+
+        marker_832e6cd3c1fdd44dfd27ff2eeec3418e.bindPopup(popup_63822063d859b25f4534adbb485bcedc)
+        ;
+
+        
+    
+    
+                marker_832e6cd3c1fdd44dfd27ff2eeec3418e.setIcon(icon_fb102397e32e3ab7aa3ec2a1e95fa917);
+            
+    
+            var marker_0d078ee8433797cc5f40f85a8312622b = L.marker(
+                [34.6901, 135.1955],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_3c556a3be87d4398aca4f6bb6b66f399 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6fd721aa9f87e4fc181ec95b27792990 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9692243dc44da754d552b01b221c28bc = $(`<div id="html_9692243dc44da754d552b01b221c28bc" style="width: 100.0%; height: 100.0%;">     <b>📍 Kobe, Japan</b><br>     <b>Total donors:</b> 30<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 34.6901, 135.1955     </div>`)[0];
+                popup_6fd721aa9f87e4fc181ec95b27792990.setContent(html_9692243dc44da754d552b01b221c28bc);
+            
+        
+
+        marker_0d078ee8433797cc5f40f85a8312622b.bindPopup(popup_6fd721aa9f87e4fc181ec95b27792990)
+        ;
+
+        
+    
+    
+                marker_0d078ee8433797cc5f40f85a8312622b.setIcon(icon_3c556a3be87d4398aca4f6bb6b66f399);
+            
+    
+            var marker_3753baf5202ff46347e5b427ae98f2b3 = L.marker(
+                [22.5726, 88.3639],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_02ca83bd1db365c3a35a2eb3c6ff302d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6cf619a41379beae14e3729a148c4884 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7b7be59741e05d07d0525968587fc9b7 = $(`<div id="html_7b7be59741e05d07d0525968587fc9b7" style="width: 100.0%; height: 100.0%;">     <b>📍 Kolkata, India</b><br>     <b>Total donors:</b> 1<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 22.5726, 88.3639     </div>`)[0];
+                popup_6cf619a41379beae14e3729a148c4884.setContent(html_7b7be59741e05d07d0525968587fc9b7);
+            
+        
+
+        marker_3753baf5202ff46347e5b427ae98f2b3.bindPopup(popup_6cf619a41379beae14e3729a148c4884)
+        ;
+
+        
+    
+    
+                marker_3753baf5202ff46347e5b427ae98f2b3.setIcon(icon_02ca83bd1db365c3a35a2eb3c6ff302d);
+            
+    
+            var marker_1dfeb3725e4c5c99ff1c7c814069c503 = L.marker(
+                [-12.0464, -77.0428],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_e42093817537a8fdc4bb88df67bd2666 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_68ccd0468212d073a658345609a5dc3c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2a95f9150e0d38394a239a28d77a8f86 = $(`<div id="html_2a95f9150e0d38394a239a28d77a8f86" style="width: 100.0%; height: 100.0%;">     <b>📍 Lima, Peru</b><br>     <b>Total donors:</b> 31<br>     <b>Transactions:</b> 2<br>     <b>Coordinates:</b> -12.0464, -77.0428     </div>`)[0];
+                popup_68ccd0468212d073a658345609a5dc3c.setContent(html_2a95f9150e0d38394a239a28d77a8f86);
+            
+        
+
+        marker_1dfeb3725e4c5c99ff1c7c814069c503.bindPopup(popup_68ccd0468212d073a658345609a5dc3c)
+        ;
+
+        
+    
+    
+                marker_1dfeb3725e4c5c99ff1c7c814069c503.setIcon(icon_e42093817537a8fdc4bb88df67bd2666);
+            
+    
+            var marker_3805799a630b415f7c95db78c0a9f55a = L.marker(
+                [14.5995, 120.9842],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_ff3e076b8cfb761728731a4cdcf193f5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7fd4e507b447c4ddc36e5fb3ca0bf28b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_71c95ab37e18c41461892a095ba7b6a9 = $(`<div id="html_71c95ab37e18c41461892a095ba7b6a9" style="width: 100.0%; height: 100.0%;">     <b>📍 Manila, Philippines</b><br>     <b>Total donors:</b> 21<br>     <b>Transactions:</b> 2<br>     <b>Coordinates:</b> 14.5995, 120.9842     </div>`)[0];
+                popup_7fd4e507b447c4ddc36e5fb3ca0bf28b.setContent(html_71c95ab37e18c41461892a095ba7b6a9);
+            
+        
+
+        marker_3805799a630b415f7c95db78c0a9f55a.bindPopup(popup_7fd4e507b447c4ddc36e5fb3ca0bf28b)
+        ;
+
+        
+    
+    
+                marker_3805799a630b415f7c95db78c0a9f55a.setIcon(icon_ff3e076b8cfb761728731a4cdcf193f5);
+            
+    
+            var marker_bc34ff73c78bf519adf61ed069cbd812 = L.marker(
+                [-37.8136, 144.9631],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_6323337ca4bbc71691cd1fe06ce7d42b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_729a7b307f5209f5ac70c1b7248fa528 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_be275988ec9ecbb7281edb5d85ee0392 = $(`<div id="html_be275988ec9ecbb7281edb5d85ee0392" style="width: 100.0%; height: 100.0%;">     <b>📍 Melbourne, Australia</b><br>     <b>Total donors:</b> 90<br>     <b>Transactions:</b> 5<br>     <b>Coordinates:</b> -37.8136, 144.9631     </div>`)[0];
+                popup_729a7b307f5209f5ac70c1b7248fa528.setContent(html_be275988ec9ecbb7281edb5d85ee0392);
+            
+        
+
+        marker_bc34ff73c78bf519adf61ed069cbd812.bindPopup(popup_729a7b307f5209f5ac70c1b7248fa528)
+        ;
+
+        
+    
+    
+                marker_bc34ff73c78bf519adf61ed069cbd812.setIcon(icon_6323337ca4bbc71691cd1fe06ce7d42b);
+            
+    
+            var marker_f678953dc67dd3621af23923f7d38317 = L.marker(
+                [19.4326, -99.1332],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_fe2f4e689a274af491d9f40298a224d4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_aeda5d7cf0cac9e202f47c0e0242f179 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c572faac2ffd783e12d920c7b594fc8f = $(`<div id="html_c572faac2ffd783e12d920c7b594fc8f" style="width: 100.0%; height: 100.0%;">     <b>📍 Mexico City, Mexico</b><br>     <b>Total donors:</b> 1<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 19.4326, -99.1332     </div>`)[0];
+                popup_aeda5d7cf0cac9e202f47c0e0242f179.setContent(html_c572faac2ffd783e12d920c7b594fc8f);
+            
+        
+
+        marker_f678953dc67dd3621af23923f7d38317.bindPopup(popup_aeda5d7cf0cac9e202f47c0e0242f179)
+        ;
+
+        
+    
+    
+                marker_f678953dc67dd3621af23923f7d38317.setIcon(icon_fe2f4e689a274af491d9f40298a224d4);
+            
+    
+            var marker_e589391dc32e1d5caa6b6c8ce930e886 = L.marker(
+                [32.7503, 129.8779],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_3f6ace371d42a72db3ee1c030bf376e3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c89b290cca93b7ce476436799ac76a78 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_52aaa3979c5b104d1984175c42f49838 = $(`<div id="html_52aaa3979c5b104d1984175c42f49838" style="width: 100.0%; height: 100.0%;">     <b>📍 Nagasaki, Japan</b><br>     <b>Total donors:</b> 5<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 32.7503, 129.8779     </div>`)[0];
+                popup_c89b290cca93b7ce476436799ac76a78.setContent(html_52aaa3979c5b104d1984175c42f49838);
+            
+        
+
+        marker_e589391dc32e1d5caa6b6c8ce930e886.bindPopup(popup_c89b290cca93b7ce476436799ac76a78)
+        ;
+
+        
+    
+    
+                marker_e589391dc32e1d5caa6b6c8ce930e886.setIcon(icon_3f6ace371d42a72db3ee1c030bf376e3);
+            
+    
+            var marker_5fb7ad943c7c4e904f45dea871c629bb = L.marker(
+                [40.7128, -74.006],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_4a7c0da19dfcf2e2d3d0eab4ff023ff5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d2c4f7c9d2e74b4d17c0b45c3bc872de = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9be57e5339e424e36ae29862285562bf = $(`<div id="html_9be57e5339e424e36ae29862285562bf" style="width: 100.0%; height: 100.0%;">     <b>📍 New York, USA</b><br>     <b>Total donors:</b> 2972<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 40.7128, -74.0060     </div>`)[0];
+                popup_d2c4f7c9d2e74b4d17c0b45c3bc872de.setContent(html_9be57e5339e424e36ae29862285562bf);
+            
+        
+
+        marker_5fb7ad943c7c4e904f45dea871c629bb.bindPopup(popup_d2c4f7c9d2e74b4d17c0b45c3bc872de)
+        ;
+
+        
+    
+    
+                marker_5fb7ad943c7c4e904f45dea871c629bb.setIcon(icon_4a7c0da19dfcf2e2d3d0eab4ff023ff5);
+            
+    
+            var marker_40dfe1bd49b563cc59f6a311051d47d8 = L.marker(
+                [8.9824, -79.5199],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_7a9792baa71a60066eae67cccb877fde = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_aceb9edeac92bd073b646f2ca8dce171 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0ec969b6caec17ba2bbcc76065be71b3 = $(`<div id="html_0ec969b6caec17ba2bbcc76065be71b3" style="width: 100.0%; height: 100.0%;">     <b>📍 Panama City, Panama</b><br>     <b>Total donors:</b> 300<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 8.9824, -79.5199     </div>`)[0];
+                popup_aceb9edeac92bd073b646f2ca8dce171.setContent(html_0ec969b6caec17ba2bbcc76065be71b3);
+            
+        
+
+        marker_40dfe1bd49b563cc59f6a311051d47d8.bindPopup(popup_aceb9edeac92bd073b646f2ca8dce171)
+        ;
+
+        
+    
+    
+                marker_40dfe1bd49b563cc59f6a311051d47d8.setIcon(icon_7a9792baa71a60066eae67cccb877fde);
+            
+    
+            var marker_fdecbd9dd02c94a2b74a3cc51a80a01c = L.marker(
+                [5.4164, 100.3323],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_dd019839a745797c29e3534d9ea82556 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_98ae9a22a7e570684572fb3a77ee0e96 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5f1cc9512d3c6e27b72198c38800069a = $(`<div id="html_5f1cc9512d3c6e27b72198c38800069a" style="width: 100.0%; height: 100.0%;">     <b>📍 Penang, Malaysia</b><br>     <b>Total donors:</b> 11<br>     <b>Transactions:</b> 4<br>     <b>Coordinates:</b> 5.4164, 100.3323     </div>`)[0];
+                popup_98ae9a22a7e570684572fb3a77ee0e96.setContent(html_5f1cc9512d3c6e27b72198c38800069a);
+            
+        
+
+        marker_fdecbd9dd02c94a2b74a3cc51a80a01c.bindPopup(popup_98ae9a22a7e570684572fb3a77ee0e96)
+        ;
+
+        
+    
+    
+                marker_fdecbd9dd02c94a2b74a3cc51a80a01c.setIcon(icon_dd019839a745797c29e3534d9ea82556);
+            
+    
+            var marker_5bcd3dd62502606a1454a27e41f978da = L.marker(
+                [37.7749, -122.4194],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_49978a5e8f704097c32c9fb3c975a73e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7b21318ea3bba17d69c836e1b382f2a4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_15c5bdbeb8123dd2ab6a44df1046455d = $(`<div id="html_15c5bdbeb8123dd2ab6a44df1046455d" style="width: 100.0%; height: 100.0%;">     <b>📍 San Francisco, USA</b><br>     <b>Total donors:</b> 31<br>     <b>Transactions:</b> 11<br>     <b>Coordinates:</b> 37.7749, -122.4194     </div>`)[0];
+                popup_7b21318ea3bba17d69c836e1b382f2a4.setContent(html_15c5bdbeb8123dd2ab6a44df1046455d);
+            
+        
+
+        marker_5bcd3dd62502606a1454a27e41f978da.bindPopup(popup_7b21318ea3bba17d69c836e1b382f2a4)
+        ;
+
+        
+    
+    
+                marker_5bcd3dd62502606a1454a27e41f978da.setIcon(icon_49978a5e8f704097c32c9fb3c975a73e);
+            
+    
+            var marker_6806a8d05561fd85cb9eb726645f8922 = L.marker(
+                [31.2304, 121.4737],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_98696fb65dbb55f22610e918258338cb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f4b8d3adc1288dc1dbfcc3cf6e477b42 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eed288c4199e1759d7b8dfbcbb8f8e18 = $(`<div id="html_eed288c4199e1759d7b8dfbcbb8f8e18" style="width: 100.0%; height: 100.0%;">     <b>📍 Shanghai, China</b><br>     <b>Total donors:</b> 2<br>     <b>Transactions:</b> 2<br>     <b>Coordinates:</b> 31.2304, 121.4737     </div>`)[0];
+                popup_f4b8d3adc1288dc1dbfcc3cf6e477b42.setContent(html_eed288c4199e1759d7b8dfbcbb8f8e18);
+            
+        
+
+        marker_6806a8d05561fd85cb9eb726645f8922.bindPopup(popup_f4b8d3adc1288dc1dbfcc3cf6e477b42)
+        ;
+
+        
+    
+    
+                marker_6806a8d05561fd85cb9eb726645f8922.setIcon(icon_98696fb65dbb55f22610e918258338cb);
+            
+    
+            var marker_6ba7bce8b985a715ed0b472f90123be5 = L.marker(
+                [1.3521, 103.8198],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_55e6c0f1dbfd6f34b29132a8333ebe96 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_220daccef1ec22513f64715cbe30062e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_245b73e46b534e7f2cecbe828bf3b25e = $(`<div id="html_245b73e46b534e7f2cecbe828bf3b25e" style="width: 100.0%; height: 100.0%;">     <b>📍 Singapore, Singapore</b><br>     <b>Total donors:</b> 332<br>     <b>Transactions:</b> 26<br>     <b>Coordinates:</b> 1.3521, 103.8198     </div>`)[0];
+                popup_220daccef1ec22513f64715cbe30062e.setContent(html_245b73e46b534e7f2cecbe828bf3b25e);
+            
+        
+
+        marker_6ba7bce8b985a715ed0b472f90123be5.bindPopup(popup_220daccef1ec22513f64715cbe30062e)
+        ;
+
+        
+    
+    
+                marker_6ba7bce8b985a715ed0b472f90123be5.setIcon(icon_55e6c0f1dbfd6f34b29132a8333ebe96);
+            
+    
+            var marker_8b467d368fda8b08b273a16e92e995e9 = L.marker(
+                [35.6892, 51.389],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_e08ad0e1aea8be492b2db3a20d56743f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a9c11b778848a5da663706a6a2726ded = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e43a83ae2df7de4d2d35ed0760d1b9b2 = $(`<div id="html_e43a83ae2df7de4d2d35ed0760d1b9b2" style="width: 100.0%; height: 100.0%;">     <b>📍 Tehran, Iran</b><br>     <b>Total donors:</b> 10<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 35.6892, 51.3890     </div>`)[0];
+                popup_a9c11b778848a5da663706a6a2726ded.setContent(html_e43a83ae2df7de4d2d35ed0760d1b9b2);
+            
+        
+
+        marker_8b467d368fda8b08b273a16e92e995e9.bindPopup(popup_a9c11b778848a5da663706a6a2726ded)
+        ;
+
+        
+    
+    
+                marker_8b467d368fda8b08b273a16e92e995e9.setIcon(icon_e08ad0e1aea8be492b2db3a20d56743f);
+            
+    
+            var marker_58d3dbc074156667c02323113a7ec185 = L.marker(
+                [48.4284, -123.3656],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_633ffcb90658cf0beb9dad26a8d4e9a4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1414297e0c12b3f7cb5a78af1e9e5052 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_447329d968006d256f7af718d65404f1 = $(`<div id="html_447329d968006d256f7af718d65404f1" style="width: 100.0%; height: 100.0%;">     <b>📍 Victoria, Canada</b><br>     <b>Total donors:</b> 2<br>     <b>Transactions:</b> 2<br>     <b>Coordinates:</b> 48.4284, -123.3656     </div>`)[0];
+                popup_1414297e0c12b3f7cb5a78af1e9e5052.setContent(html_447329d968006d256f7af718d65404f1);
+            
+        
+
+        marker_58d3dbc074156667c02323113a7ec185.bindPopup(popup_1414297e0c12b3f7cb5a78af1e9e5052)
+        ;
+
+        
+    
+    
+                marker_58d3dbc074156667c02323113a7ec185.setIcon(icon_633ffcb90658cf0beb9dad26a8d4e9a4);
+            
+    
+            var marker_4e4732f6de7df5771dde9734dbe29a19 = L.marker(
+                [24.4798, 118.0894],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_cae5b4cd818d4bd2bf80eff82127d79c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d6807f01a78a5a800b907db0d0e7b106 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_afc1bb760ef29f8951eddd61cb5b050c = $(`<div id="html_afc1bb760ef29f8951eddd61cb5b050c" style="width: 100.0%; height: 100.0%;">     <b>📍 Xiamen, China</b><br>     <b>Total donors:</b> 1<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 24.4798, 118.0894     </div>`)[0];
+                popup_d6807f01a78a5a800b907db0d0e7b106.setContent(html_afc1bb760ef29f8951eddd61cb5b050c);
+            
+        
+
+        marker_4e4732f6de7df5771dde9734dbe29a19.bindPopup(popup_d6807f01a78a5a800b907db0d0e7b106)
+        ;
+
+        
+    
+    
+                marker_4e4732f6de7df5771dde9734dbe29a19.setIcon(icon_cae5b4cd818d4bd2bf80eff82127d79c);
+            
+    
+            var marker_eb504f0a7bdfba0c8ac23d1190bfbc4b = L.marker(
+                [16.8409, 96.1735],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_e75b94461948730384c78418954d766e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ad47a64cfb9fcec97fc7c56d13696623 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_192ce44e2628575ac0d046bf40bb4728 = $(`<div id="html_192ce44e2628575ac0d046bf40bb4728" style="width: 100.0%; height: 100.0%;">     <b>📍 Yangon, Myanmar</b><br>     <b>Total donors:</b> 10<br>     <b>Transactions:</b> 2<br>     <b>Coordinates:</b> 16.8409, 96.1735     </div>`)[0];
+                popup_ad47a64cfb9fcec97fc7c56d13696623.setContent(html_192ce44e2628575ac0d046bf40bb4728);
+            
+        
+
+        marker_eb504f0a7bdfba0c8ac23d1190bfbc4b.bindPopup(popup_ad47a64cfb9fcec97fc7c56d13696623)
+        ;
+
+        
+    
+    
+                marker_eb504f0a7bdfba0c8ac23d1190bfbc4b.setIcon(icon_e75b94461948730384c78418954d766e);
+            
+    
+            var marker_480c7dd76bc17ffedbd3cafcb7c9d81c = L.marker(
+                [35.4437, 139.638],
+                {
+}
+            ).addTo(marker_cluster_c43227b2ab984949e389a1a44f0f8ede);
+        
+    
+            var icon_29fb79a1be247b4a75b060037dd10159 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fb89562062181f1e029c6e1ce6dded5e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a7ae825c2518ffefd4db3cc47ea62107 = $(`<div id="html_a7ae825c2518ffefd4db3cc47ea62107" style="width: 100.0%; height: 100.0%;">     <b>📍 Yokohama, Japan</b><br>     <b>Total donors:</b> 43<br>     <b>Transactions:</b> 1<br>     <b>Coordinates:</b> 35.4437, 139.6380     </div>`)[0];
+                popup_fb89562062181f1e029c6e1ce6dded5e.setContent(html_a7ae825c2518ffefd4db3cc47ea62107);
+            
+        
+
+        marker_480c7dd76bc17ffedbd3cafcb7c9d81c.bindPopup(popup_fb89562062181f1e029c6e1ce6dded5e)
+        ;
+
+        
+    
+    
+                marker_480c7dd76bc17ffedbd3cafcb7c9d81c.setIcon(icon_29fb79a1be247b4a75b060037dd10159);
+            
+    
+            marker_cluster_c43227b2ab984949e389a1a44f0f8ede.addTo(map_ca5e249f38b6f6eb4108d2bfac6c2e2d);
+        
+</script>
+</html>
